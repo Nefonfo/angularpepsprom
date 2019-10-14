@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>fdsfds</h2>
+
+<mat-dialog-content [formGroup]="dataForm">
+  
+    <mat-form-field>
+        <input matInput
+                placeholder="Nombre"
+               formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+            <mat-label>Seleccione Tipo</mat-label>
+            <mat-select formControlName="type">
+              <mat-option *ngFor="let type of typesData" [value]="type">
+                {{type}}
+              </mat-option>
+            </mat-select>
+    </mat-form-field>
+          
+ 
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Close</button>
+    <button [disabled]="dataForm.invalid" class="mat-raised-button mat-primary" (click)="save()">Save</button>
+</mat-dialog-actions>
