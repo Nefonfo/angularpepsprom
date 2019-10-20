@@ -1,1 +1,115 @@
-<p>info-sheet-page works!</p>
+<div *ngIf="loading" class="centered-spin">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <mat-spinner></mat-spinner>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!loading">
+  <mat-toolbar>
+    <span>{{ sheet.name }}</span>
+    <span class="spacer"></span>
+    <button mat-raised-button color="warn" routerLink="/">REGRESAR</button>
+  </mat-toolbar>
+  <div class="container">
+    <h5>Metodo: {{ sheet.type }}</h5>
+    <button mat-raised-button color="accent" (click)="openInfo()">
+      <mat-icon style="color: white;">add</mat-icon> AGREGAR
+    </button>
+    <div class="row" style="height: 2rem;"></div>
+    <div class="col s12">
+      <div *ngIf="dataInfo.length <= 0">
+        <h3 class="center-align">No Hay Registros</h3>
+      </div>
+      <div class="" *ngIf="dataInfo.length > 0">
+        <table
+          class="mat-elevation-z8 responsive-table striped highlight centered"
+        >
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Tipo</th>
+              <th>Cantidad</th>
+              <th>Costo Unitario</th>
+              <th>Existencia</th>
+              <th>Saldo Cantidad</th>
+              <th>Saldo Costo Unitario</th>
+              <th>Saldo Total</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let element of dataInfo; trackBy: trackById">
+              <td
+                [ngClass]="{
+                  'mat-red': element.type === 'SALIDA',
+                  'mat-green': element.type === 'ENTRADA'
+                }"
+              >
+                {{ element.operation }}
+              </td>
+              <td
+                [ngClass]="{
+                  'mat-red': element.type === 'SALIDA',
+                  'mat-green': element.type === 'ENTRADA'
+                }"
+              >
+                {{ element.type }}
+              </td>
+              <td
+                [ngClass]="{
+                  'mat-red': element.type === 'SALIDA',
+                  'mat-green': element.type === 'ENTRADA'
+                }"
+              >
+                {{ element.quantity | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'mat-red': element.type === 'SALIDA',
+                  'mat-green': element.type === 'ENTRADA'
+                }"
+              >
+                ${{ element.unitCost | number: "1.2-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'mat-red': element.type === 'SALIDA',
+                  'mat-green': element.type === 'ENTRADA'
+                }"
+              >
+                {{ element.existence | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'mat-red': element.type === 'SALIDA',
+                  'mat-green': element.type === 'ENTRADA'
+                }"
+              >
+                {{ element.balance.quantity | number }}
+              </td>
+              <td
+                [ngClass]="{
+                  'mat-red': element.type === 'SALIDA',
+                  'mat-green': element.type === 'ENTRADA'
+                }"
+              >
+                ${{ element.balance.unitCost | number: "1.2-2" }}
+              </td>
+              <td
+                [ngClass]="{
+                  'mat-red': element.type === 'SALIDA',
+                  'mat-green': element.type === 'ENTRADA'
+                }"
+              >
+                ${{ element.balance.total | number: "1.2-2" }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

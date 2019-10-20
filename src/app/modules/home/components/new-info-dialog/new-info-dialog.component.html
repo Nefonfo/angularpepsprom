@@ -1,16 +1,25 @@
-<h2 mat-dialog-title>Nuevo Almacen</h2>
+<h2 mat-dialog-title>fdsfds</h2>
 
 <mat-dialog-content [formGroup]="dataForm">
   <mat-form-field>
-    <input matInput placeholder="Nombre" formControlName="name" />
-  </mat-form-field>
-  <mat-form-field>
     <mat-label>Seleccione Tipo</mat-label>
-    <mat-select formControlName="type">
+    <mat-select
+      formControlName="type"
+      (selectionChange)="onChangeSelect($event)"
+    >
       <mat-option *ngFor="let type of typesData" [value]="type">
         {{ type }}
       </mat-option>
     </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Nombre" formControlName="name" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Cantidad" formControlName="quantity" />
+  </mat-form-field>
+  <mat-form-field *ngIf="ableTo">
+    <input matInput placeholder="Precio Unitario" formControlName="unitCost" />
   </mat-form-field>
 </mat-dialog-content>
 

@@ -5,3 +5,11 @@
 .green {
     background-color: rgb(15, 255, 47);
 }
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+  }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ChangeDetectorRef} from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewSheetDialogComponent } from '../../components/new-sheet-dialog/new-sheet-dialog.component';
 import { SheetStorageService } from 'src/app/core/http-services/sheet-storage.service';
@@ -10,17 +10,30 @@ import Swal from 'sweetalert2';
   templateUrl: './all-activities-page.component.html',
   styleUrls: ['./all-activities-page.component.scss']
 })
-export class AllActivitiesPageComponent implements OnInit{
+export class AllActivitiesPageComponent implements OnInit, AfterViewInit{
 
   loading: boolean;
-  sheets: object;
+  sheets;
+
+  trackById(index, item){
+    return item._id;
+  }
 
   ngOnInit(): void {
     this.sheets = null;
     this.findAllSheet();
   }
 
-  constructor(private dialog: MatDialog, private readonly httpSheetStorageService: SheetStorageService) {}
+  constructor(
+    private dialog: MatDialog, private readonly httpSheetStorageService: SheetStorageService,
+    private cdr: ChangeDetectorRef
+    ) {}
+
+  ngAfterViewInit() {
+    // We only want to detach the change detectors after change detection has been
+    // performed for the first time
+    this.cdr.detach();
+}
 
   async newSheet() {
     const dialogConfig = new MatDialogConfig();
@@ -44,7 +57,7 @@ export class AllActivitiesPageComponent implements OnInit{
           type: 'success',
           confirmButtonText: 'ok'
         });
-        setTimeout(() => this.findAllSheet(), 100);
+        setTimeout(() => this.findAllSheet(), 2000);
       }
     );
 
@@ -52,9 +65,10 @@ export class AllActivitiesPageComponent implements OnInit{
 
   async findAllSheet() {
     this.loading = true;
+    this.cdr.detectChanges();
     this.sheets = await this.httpSheetStorageService.findAllSheet();
     this.loading = false;
-    console.log(this.sheets);
+    this.cdr.detectChanges();
   }
 }
 

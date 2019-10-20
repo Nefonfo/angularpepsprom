@@ -6,10 +6,18 @@ import { InfoSheetPageComponent } from './modules/home/pages/info-sheet-page/inf
 
 const routes: Routes = [
   {
-    path: '', component: AllActivitiesPageComponent,
+    path: '',
+    component: AllActivitiesPageComponent,
+    data: {
+      animation: 'Home'
+    }
   },
   {
-    path: 'info/:id', component: InfoSheetPageComponent,
+    path: 'info/:id',
+    component: InfoSheetPageComponent,
+    data: {
+      animation: 'Info'
+    }
   }
 ];
 

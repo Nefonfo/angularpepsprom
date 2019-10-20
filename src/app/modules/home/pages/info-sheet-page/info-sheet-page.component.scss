@@ -1,0 +1,20 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+
+.mat-red{
+  color: #F44336;
+}
+
+.mat-green{
+  color: #8BC34A;
+}
+
+
+.centered-spin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}

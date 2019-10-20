@@ -1,22 +1,36 @@
 <mat-toolbar color="theme">
   <span>Almacen</span>
-
 </mat-toolbar>
-<div class="row">
-  <div class="col s12 m6">
-    <mat-card class="card">
-      <mat-card-header>
-        <div mat-card-avatar>
-          <button mat-mini-fab class="green" (click)="newSheet()">
-            <mat-icon style="color: white;">add</mat-icon>
-          </button>
-        </div>
-        <mat-card-title>Nueva Lista de Almacen</mat-card-title>
-        <mat-card-subtitle>Crear una nueva lista</mat-card-subtitle>
-      </mat-card-header>
-    </mat-card>
+<div *ngIf="loading" class="centered">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <mat-spinner></mat-spinner>
+      </div>
+    </div>
   </div>
-  <div *ngFor="let sheet of sheets" class="col s12 m6">
-    <app-card-sheet [title]="sheet.name" [type]="sheet.type" [id]="sheet._id"></app-card-sheet>
+</div>
+<div *ngIf="!loading">
+  <div class="row">
+    <div class="col s12 m6">
+      <mat-card class="card">
+        <mat-card-header>
+          <div mat-card-avatar>
+            <button mat-mini-fab class="green" (click)="newSheet()">
+              <mat-icon style="color: white;">add</mat-icon>
+            </button>
+          </div>
+          <mat-card-title>Nueva Lista de Almacen</mat-card-title>
+          <mat-card-subtitle>Crear una nueva lista</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+    <div *ngFor="let sheet of sheets; trackBy: trackById" class="col s12 m6">
+      <app-card-sheet
+        [title]="sheet.name"
+        [type]="sheet.type"
+        [id]="sheet._id"
+      ></app-card-sheet>
+    </div>
   </div>
 </div>
